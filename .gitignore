@@ -1,0 +1,30 @@
+# ---------------------------------------------------------------------------
+# data/ — never commit any of it.
+#
+# The exports carry the account holder's full name, service address and account
+# numbers, plus a year of 15-minute electricity readings, which is enough to
+# reconstruct sleep schedules and identify the weeks the house was empty. The
+# PDF bills carry the same identifiers in plainer form.
+#
+# The whole directory is ignored rather than a list of filenames, so a new
+# export cannot be committed by accident merely because nobody remembered to
+# add its name here.
+#
+# data/noaa/ goes with it. That is public NOAA data with no PII, but it is also
+# regenerable in one command, so there is nothing to gain from an exception
+# that would weaken the rule:
+#     python3 tools/fetch_noaa.py
+# ---------------------------------------------------------------------------
+data/
+
+# The generated dashboard embeds the same usage data. Keep it local.
+build/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# WSL download markers
+*:Zone.Identifier
