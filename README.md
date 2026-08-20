@@ -241,3 +241,10 @@ gas always orange, water always aqua, in every chart on the page. The
 categorical set was validated for colour-vision deficiency and contrast in both
 light and dark modes. Every chart ships a table view, so no value is reachable
 by colour alone, and no chart uses two y-axes.
+
+## Licence
+
+[The Unlicense](LICENSE) — public domain. Take any of it, for anything, without
+asking or crediting. The one thing that is not yours to take is the data: `data/`
+never leaves this machine, and the readings behind the published dashboard are
+one household's, not a corpus.
