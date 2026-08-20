@@ -52,7 +52,19 @@ def attempt(hide: frozenset[str]) -> tuple[bool, str]:
             page = sections.build_all(data)
             html = report.render_page(title="t", heading="h", subtitle="s",
                                       sections=page, footer="f")
-    except Exception:
+    # SystemExit as well as Exception, because the build's own way of giving up
+    # is `sys.exit` — a failed tariff or nameplate self-check, an export that
+    # parsed no rows, a duplicate section emoji, or no overlapping days across
+    # the three sources. Those inherit from BaseException, so an `except
+    # Exception` here let them past: the first case to hit one killed the whole
+    # run with a bare message, reporting no FAIL line for that source and
+    # silently skipping every case after it. Losing an optional source and
+    # thinning the join to nothing is exactly a failure this tool exists to
+    # report, and it was the one shape it could not.
+    #
+    # Not BaseException — Ctrl-C should still stop the run rather than be
+    # recorded as a failed build.
+    except (Exception, SystemExit):
         tb = traceback.format_exc().strip().splitlines()
         site = [l.strip() for l in tb if "/src/" in l]
         return False, f"{tb[-1]}\n{'':>22}{site[-1] if site else ''}"
